@@ -4,9 +4,8 @@ FROM centos:latest
 LABEL Version 1.0
 MAINTAINER kalise <https://github.com/kalise/>
 
-ENV MIRROR='http://it.apache.contactlab.it/' \
-    TOMCAT='tomcat-7' \
-    TOMCAT_VERSION='7.0.72' \
+ENV TOMCAT='tomcat-7' \
+    TOMCAT_VERSION='7.0.75' \
     JAVA_VERSION='1.7.0' \
     USER_NAME='user' \
     INSTANCE_NAME='instance'
@@ -19,7 +18,7 @@ RUN yum install -y java-${JAVA_VERSION}-openjdk-devel && \
 yum clean all
 
 # Install Tomcat
-RUN wget --quiet --no-cookies http://${MIRROR}/tomcat/${TOMCAT}/${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+RUN wget --no-cookies http://archive.apache.org/dist/tomcat/${TOMCAT}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
 tar xzvf /tmp/tomcat.tgz -C /opt && \
 ln -s  /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
 rm /tmp/tomcat.tgz
