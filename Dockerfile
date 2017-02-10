@@ -1,24 +1,37 @@
-# Create the image from the latest rhel7 image
-FROM registry.access.redhat.com/rhel7:latest
+# Create the image from the latest centos image
+FROM centos:latest
 
 LABEL Version 1.0
 MAINTAINER kalise <https://github.com/kalise/>
 
-# Install dependencies
-RUN yum --disablerepo=* --enablerepo=rhel-7-server-rpms install -y java-1.7.0-openjdk-devel
+ENV MIRROR http://it.apache.contactlab.it/
+ENV TOMCAT tomcat-7
+ENV TOMCAT_VERSION 7.0.72
+ENV JAVA_VERSION 1.7.0
+ENV USER_NAME user
+ENV INSTANCE_NAME instance
 
-# Add tomcat binaries
-ADD apache-tomcat-7.0.72 /var/tomcat
+
+# Install dependencies
+RUN yum update -y && yum install -y wget gzip tar
+
+# Install jdk
+RUN yum install -y java-${JAVA_VERSION}-openjdk-devel && \
+yum clean all
+
+# Install Tomcat
+RUN wget -y --quiet --no-cookies http://${MIRROR}/tomcat/${TOMCAT}/${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+tar xzvf /tmp/tomcat.tgz -C /opt && \
+ln -s  /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+rm /tmp/tomcat.tgz
+
+# Add the tomcat manager users file
+ADD tomcat-users.xml /opt/tomcat/conf/
 
 # Add the tomcat starting script
 ADD start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-# Add the manager web app
-ADD manager /var/tomcat/webapps
-
-# Declare Env variables
-ENV INSTANCENAME="Tomcat"
-ENV JAVA_OPTS="-XX:MaxPermSize=1024m -XX:PermSize=512m"
+EXPOSE 8080
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]
