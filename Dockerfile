@@ -1,5 +1,5 @@
 # Create the image from the latest rhel7 image
-FROM rhel7:latest
+FROM registry.access.redhat.com/rhel7:latest
 
 LABEL Version 1.0
 MAINTAINER kalise <https://github.com/kalise/>
