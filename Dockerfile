@@ -26,9 +26,6 @@ rm /tmp/tomcat.tgz
 # Add the tomcat manager users file
 ADD tomcat-users.xml /opt/tomcat/conf/
 
-RUN chown -R 1001:1001 /opt/tomcat
-USER 1001
-
 # Expose HTTP and AJP ports
 EXPOSE 8080 8009
 
