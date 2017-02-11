@@ -1,5 +1,5 @@
 # Create the image from the latest image
-FROM centos7:latest
+FROM centos:latest
 
 LABEL Version 1.0
 MAINTAINER kalise <https://github.com/kalise/>
