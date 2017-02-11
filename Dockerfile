@@ -1,11 +1,12 @@
 # Create the image from the latest centos image
-FROM centos:latest
+#FROM centos:latest
+FROM rhel7:latest
 
 LABEL Version 1.0
 MAINTAINER kalise <https://github.com/kalise/>
 
 ENV TOMCAT='tomcat-7' \
-    TOMCAT_VERSION='7.0.75' \
+    TOMCAT_VERSION='7.0.72' \
     JAVA_VERSION='1.7.0' \
     USER_NAME='user' \
     INSTANCE_NAME='instance'
