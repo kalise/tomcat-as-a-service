@@ -1,5 +1,5 @@
 # Create the image from the latest image
-FROM centos:latest
+FROM centos7:latest
 
 LABEL Version 1.0
 MAINTAINER kalise <https://github.com/kalise/>
@@ -25,6 +25,9 @@ rm /tmp/tomcat.tgz
 
 # Add the tomcat manager users file
 ADD tomcat-users.xml /opt/tomcat/conf/
+
+RUN chown -R 1001:1001 /opt/tomcat
+USER 1001
 
 # Expose HTTP and AJP ports
 EXPOSE 8080 8009
