@@ -1,7 +1,7 @@
 # Create the image from the latest image
 FROM centos:latest
 
-LABEL Version 1.0
+LABEL Version 1.7
 MAINTAINER kalise <https://github.com/kalise/>
 
 ENV TOMCAT='tomcat-7' \
