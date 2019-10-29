@@ -3,7 +3,7 @@ FROM centos:latest
 
 ARG TOMCAT_MAJOR='7'
 ARG TOMCAT_VERSION='7.0.75'
-ARG JAVA_VERSION='1.7.0'
+ARG JAVA_VERSION='1.8.0'
 
 LABEL Version 1.${TOMCAT_MAJOR}
 LABEL maintainer="https://github.com/kalise/"
