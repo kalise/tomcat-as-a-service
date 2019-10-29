@@ -6,7 +6,7 @@ pipeline {
   
   agent any
     stage('Building image') {
-      stepsi {
+      steps {
         git 'https://github.com/kalise/tomcat-as-a-service'
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
