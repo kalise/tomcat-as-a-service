@@ -1,13 +1,13 @@
 pipeline {
   environment {
     registry = "kalise/taas"
-    registryCredential = ‘dockerhub’
+    registryCredential = 'dockerhub'
+    dockerImage = ''
   }
-  
   agent any
+  stages {
     stage('Building image') {
-      steps {
-        git 'https://github.com/kalise/tomcat-as-a-service'
+      steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
@@ -20,12 +20,12 @@ pipeline {
             dockerImage.push()
           }
         }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
-  }
-
-  environment {
-    CI = 'true'
   }
 }
